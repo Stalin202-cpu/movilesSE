@@ -10,36 +10,22 @@
             table-striped table-hover">
             <th>ID</th>
             <th>NOMBRE</th>
-            <th>CÉDULA</th>
-            <th>TURNO</th>
-            <th>USUARIO</th>
-            <th>HOJA DE VIDA</th>
+            <th>DESCRICIÓN</th>
+            <th>VERSIÓN</th>
+            <th>FECHA</th>
             <th>ACCIONES</th>
 
         </tr>
     </thead>
     <tbody>
-        {% for cargoCajeros in Cajeros %}
+        {% for cargoAplicacion in Aplicacion %}
             <tr>
-                <td>{{cargoCajeros.id}}</td>
-                <td>{{cargoCajeros.nombre}}</td>
-                <td>{{cargoCajeros.cedula}}</td>
-                <td>{{cargoCajeros.turno}}</td>
-                <td>
-                    {% if cargoCajeros.logo %}
-                        <img src="{{ cargoCajeros.logo.url }}" 
-                        height="80px" alt="">
-                    {% else %}
-                        Ninguna Imagen Subida
-                    {% endif %}
-                </td>
-                <td>
-                    {% if cargoCajeros.pdf %}
-                        <a href="{{ cargoCajeros.pdf.url }}" download>Descargar PDF</a>
-                    {% else %}
-                        Ningún Documento Subido
-                    {% endif %}
-                </td>
+                <td>{{cargoAplicacion.id}}</td>
+                <td>{{cargoAplicacion.nombre}}</td>
+                <td>{{cargoAplicacion.descripcion}}</td>
+                <td>{{cargoAplicacion.version}}</td>
+                <td>{{cargoAplicacion.fecha}}</td>
+
 
                 <td>
                     <a href="editarCajero/{{cargoCajeros.id}}" class="btn btn-outline-warning"><i class="fa fa-pen"></i></a>
