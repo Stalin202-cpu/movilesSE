@@ -9,72 +9,51 @@ def inicio(request):
     return render(request, "inicio.html", {'Aplicacion': lisyadoAplicacion})
 
 # Renderizar el formulario para nueva prueba
-def nuevoCajero(request):
-    return render(request, "nuevoCajero.html")
+def nuevaAplicacion(request):
+    return render(request, "nuevaAplicacion.html")
 
 # Función encargada de guardar una nueva prueba en la base de datos
-def guardarCajero(request):
+def guardarAplicacion(request):
     nombre = request.POST["nombre"]
-    cedula = request.POST["cedula"]
-    turno = request.POST["turno"]
+    descripcion = request.POST["descripcion"]
+    version = request.POST["version"]
+    fecha = request.POST["fecha"]
 
     #Subiendo archivo con parentecis
-    logo=request.FILES.get("logo")
-    pdf=request.FILES.get("pdf")
 
-    Cajeros.objects.create(nombre=nombre, cedula=cedula, turno=turno, logo=logo, pdf=pdf)
+    Aplicacion.objects.create(nombre=nombre, descripcion=descripcion, version=version, fecha=fecha)
 
     #Mensaje de confirmacion 
-    messages.success(request, "Cajero guardado exitosamente")
+    messages.success(request, "Aplicacion guardado exitosamente")
     return redirect('inicio')
 
 # Eliminar una prueba por ID
-def eliminarCajero(request, id):
-    cajeroElimiar = Cajeros.objects.get(id=id)
-
-    if cajeroElimiar.logo and os.path.isfile(os.path.join(settings.MEDIA_ROOT, cajeroElimiar.logo.name)):
-        os.remove(os.path.join(settings.MEDIA_ROOT, cajeroElimiar.logo.name))
-
-    if cajeroElimiar.pdf and os.path.isfile(os.path.join(settings.MEDIA_ROOT, cajeroElimiar.pdf.name)):
-        os.remove(os.path.join(settings.MEDIA_ROOT, cajeroElimiar.pdf.name))
-
-    cajeroElimiar.delete()
+def eliminarAplicacion(request, id):
+    aplicacionEliminar = Aplicacion.objects.get(id=id)
+    aplicacionEliminar.delete()
     return redirect('inicio')
 
 # Mostrando formulario de ediccion
-def editarCajero(request, id):
-    cajeroEditar = Cajeros.objects.get(id=id)
-    return render(request, "editarCajero.html", {'cajeroEditar': cajeroEditar})
+def editarAplicacion(request, id):
+    cajeroAplicacion = Aplicacion.objects.get(id=id)
+    return render(request, "editarAplicacion.html", {'cajeroAplicacion': cajeroAplicacion})
 
 def procesarEdicionCajeros(request):
     
     id=request.POST["id"]
     nombre = request.POST["nombre"]
-    cedula = request.POST["cedula"]
-    turno = request.POST["turno"]
-    logo=request.FILES.get("logo")
-    pdf=request.FILES.get("pdf")
+    descripcion = request.POST["descripcion"]
+    version = request.POST["version"]
+    fecha = request.POST["fecha"]
     
-    cajeros2=Cajeros.objects.get(id=id)
-    cajeros2.nombre=nombre
-    cajeros2.cedula=cedula
-    cajeros2.turno=turno
-    if logo :
-        if cajeros2.logo:
-            rutaLogo = os.path.join(settings.MEDIA_ROOT, str(cajeros2.logo))
-            if os.path.isfile(rutaLogo):
-                os.remove(rutaLogo)
-        cajeros2.logo = logo
-
-    if pdf:
-        if cajeros2.pdf:
-            rutaPdf = os.path.join(settings.MEDIA_ROOT, str(cajeros2.pdf))
-            if os.path.isfile(rutaPdf):
-                os.remove(rutaPdf)
-        cajeros2.pdf = pdf
+    aplicacion2=Aplicacion.objects.get(id=id)
+    aplicacion2.nombre=nombre
+    aplicacion2.descripcion=descripcion
+    aplicacion2.version=version
+    aplicacion2.fecha=fecha
         
-    cajeros2.save()
+    aplicacion2.save()
     #Mensaje de confirmacion
-    messages.success(request, "Cajero Actualizado exitosamente")
+    messages.success(request, "Aplicacion Actualizado exitosamente")
     return redirect('inicio')
 
