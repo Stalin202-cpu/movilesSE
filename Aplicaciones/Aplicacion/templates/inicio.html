@@ -1,98 +1,84 @@
 {% extends './plantilla.html' %}
 {% load static %}
 {% block contenido %}
-<br><br><br><br><br><br>
-<h1 class="text-center">Listado de Aplicaciones</h1>
-<br>
-<table class="table table-bordered table-striped table-hover" id="tbl_cargos">
-    <thead>
-        <tr class="table-success text-center
-            table-striped table-hover">
-            <th>ID</th>
-            <th>NOMBRE</th>
-            <th>DESCRICIÓN</th>
-            <th>VERSIÓN</th>
-            <th>FECHA</th>
-            <th>ACCIONES</th>
+<div class="container mt-5">
+    <br><br><br><br>
+    <h1 class="text-center text-primary mb-4">📱 Listado de Aplicaciones</h1>
 
-        </tr>
-    </thead>
-    <tbody>
-        {% for cargoAplicacion in Aplicacion %}
-            <tr>
-                <td>{{cargoAplicacion.id}}</td>
-                <td>{{cargoAplicacion.nombre}}</td>
-                <td>{{cargoAplicacion.descripcion}}</td>
-                <td>{{cargoAplicacion.version}}</td>
-                <td>{{cargoAplicacion.fecha}}</td>
+    <div class="table-responsive shadow rounded-3">
+        <table class="table table-bordered table-hover text-center align-middle" id="tbl_cargos">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>DESCRIPCIÓN</th>
+                    <th>VERSIÓN</th>
+                    <th>FECHA</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cargoAplicacion in Aplicacion %}
+                <tr>
+                    <td>{{ cargoAplicacion.id }}</td>
+                    <td>{{ cargoAplicacion.nombre }}</td>
+                    <td>{{ cargoAplicacion.descripcion }}</td>
+                    <td>{{ cargoAplicacion.version }}</td>
+                    <td>{{ cargoAplicacion.fecha }}</td>
+                    <td>
+                        <a href="editarAplicacion/{{ cargoAplicacion.id }}" class="btn btn-sm btn-outline-warning me-1" title="Editar">
+                            <i class="fa fa-pen"></i>
+                        </a>
+                        <a href="#" onclick="eliminarAplicacion('{{ cargoAplicacion.id }}')" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-
-                <td>
-                    <a href="editarAplicacion/{{cargoAplicacion.id}}" class="btn btn-outline-warning"><i class="fa fa-pen"></i></a>
-                    <a href="#" 
-                    onclick="eliminarAplicacion('{{cargoAplicacion.id}}')"
-                    class="btn btn-outline-danger">
-                        <i class="fa fa-trash"></i>
-                    </a>
-                    
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<div class="text-center">
-    <a href="nuevaAplicacion" class="btn btn-primary">
-        Agregar Aplicacion
-    </a>
+    <div class="text-center mt-4">
+        <a href="nuevaAplicacion" class="btn btn-primary btn-lg shadow">
+            <i class="fa fa-plus"></i> Agregar Aplicación
+        </a>
+    </div>
 </div>
-<br><br><br><br><br><br>
-<script>
-    function eliminarAplicacion(id){
-        Swal.fire({
-            title: "Desae eliminar?",
-            text: "¿Estas seguro de eliminar la Aplicacion de forma permanenete?",
-            icon: "Advertencia",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si, Borrar"
-            }).then((result) => {
-            if (result.isConfirmed) {
 
-                window.location.href="/eliminarAplicacion/"+id
-            
+<script>
+    function eliminarAplicacion(id) {
+        Swal.fire({
+            title: "¿Deseas eliminar esta aplicación?",
+            text: "Esta acción no se puede deshacer.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/eliminarAplicacion/" + id;
             }
         });
-        
     }
-    
 </script>
 
-<script>	
+<script>
     $(document).ready(function () {
         $('#tbl_cargos').DataTable({
             language: "es",
             responsive: true,
             dom: 'Bfrtip',
             buttons: [
-                {
-                    extend: 'copy',
-                    text: 'Copiar'
-                },
-                {
-                    extend: 'excel',
-                    text: 'Exportar Excel'
-                },
-                {
-                    extend: 'pdf',
-                    text: 'Exportar PDF'
-                },
-                {
-                    extend: 'print',
-                    text: 'Imprimir'
-                }
+                { extend: 'copy', text: '📋 Copiar' },
+                { extend: 'excel', text: '📊 Excel' },
+                { extend: 'pdf', text: '📄 PDF' },
+                { extend: 'print', text: '🖨️ Imprimir' }
             ]
         });
     });
 </script>
+<br><br><br><br>
 {% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from Aplicaciones.Categoria.models import Categoria
 
 class Aplicacion(models.Model):
     id = models.AutoField(primary_key=True)
@@ -6,6 +7,7 @@ class Aplicacion(models.Model):
     descripcion = models.CharField()
     version = models.CharField(max_length=100)
     fecha = models.DateField()
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE) 
 
     def __str__(self): 
         fila = "{0}:  {1}  {2}   {3} "
