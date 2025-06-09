@@ -7,7 +7,7 @@
     <div class="col-md-3"></div>
     <div class="col-md-6 bg-light p-4 rounded shadow-sm">
         <h1 class="mb-4">Nueva Aplicacion</h1>
-        <form action="nuevaAplicacion" id="frm_nuevo_aplicacion" enctype="multipart/form-data"  method="post">
+        <form action="guardarAplicacion" id="frm_nuevo_aplicacion" enctype="multipart/form-data"  method="post">
             {% csrf_token %}
 
             <label for="nombre">Nombre:</label>
@@ -17,11 +17,11 @@
             <input class="form-control mb-3" type="text" name="descripcion" id="descripcion" required><br>
 
             <label for="version">Versión:</label>
-            <input class="form-control mb-3" type="text" name="turno" id="turno" required><br>
+            <input class="form-control mb-3" type="text" name="version" id="version" required><br>
             <br><br>
 
             <label for="fecha">Fecha:</label>
-            <input class="form-control mb-3" type="date" name="turno" id="turno" required><br>
+            <input class="form-control mb-3" type="date" name="fecha" id="fecha" required><br>
             <br><br>
 
             <button
@@ -71,6 +71,10 @@
             },
             "version":{
                 required:"Por favor ingrese el turno que le toca (Dia, Tarde, Noche)"
+            },
+            "fecha":{
+                required:"Ingrese Por Favor la fecha correcta"
+
             },
 
         }
