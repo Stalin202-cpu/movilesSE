@@ -1,0 +1,46 @@
+{% extends './plantilla.html' %}
+{% load static %}
+{% block contenido %}
+
+<div class="row mt-5">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light p-4 rounded shadow-sm">
+        <h1 class="mb-4">Editar Aplicación</h1>
+        <form action='/procesarEdicionAplicacion' id="frm_editar_aplicacion" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ cajeroAplicacion.id }}">
+            
+            <label for="nombre">Nombre:</label>
+            <input class="form-control mb-3" type="text" name="nombre" id="nombre" value="{{ cajeroAplicacion.nombre }}" required>
+
+            <button class="btn btn-warning" type="submit">
+                <i class="fa fa-pen"></i> Editar
+            </button>
+            <a class="btn btn-outline-danger" href="{% url 'inicio' %}">
+                <i class="fa fa-times"></i> Cancelar
+            </a>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+<script>
+    $("#frm_editar_aplicacion").validate({
+        rules:{
+            "nombre": {
+                required: true,
+                minlength: 3,
+                maxlength: 10
+            },
+        },
+        messages: {
+            "nombre": {
+                required: "Por favor ingrese este campo",
+                minlength: "Mínimo 3 caracteres",
+                maxlength: "Máximo 10 caracteres"
+            },
+        }
+    });
+</script>
+
+{% endblock %}

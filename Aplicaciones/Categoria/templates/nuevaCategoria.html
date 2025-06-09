@@ -1,0 +1,53 @@
+<!-- el extend es para heredar -->
+{% extends './plantilla.html' %}
+{% load static %}
+{% block contenido %}
+<br><br><br><br><br><br>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light p-4 rounded shadow-sm">
+        <h1 class="mb-4">Nueva Aplicacion</h1>
+        <form action="guardarAplicacion" id="frm_nuevo_registro" enctype="multipart/form-data"  method="post">
+            {% csrf_token %}
+
+            <label for="nombre">Nombre:</label>
+            <input class="form-control mb-3" type="text" name="nombre" id="nombre" required><br>
+            <br><br>
+
+            <button
+            class="btn btn-success"
+            type="submit">Guardar</button>
+            <a 
+            class="btn btn-outline-danger"
+            href="{% url 'inicio2' %}">Cancelar</a>
+            
+        </form>
+        <br>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<!-- Embeder codigo javascript/jquery dentro del HTML -->
+
+<script>
+    $("#frm_nuevo_registro").validate({
+        rules:{
+            "nombre":{
+                required:true,
+                minlength:3,//Cuenta los caracteres
+                maxlength:20//caracteres maximos
+            },
+        },
+        messages:{
+
+            "nombre":{
+                required:"Por favor ingrese este campo es Obligatorio!!",
+                minlength:"Este campo solo acepta nombres de 3 Letras",//Cuenta los caracteres
+                maxlength:"El nombre debe ser maximo de 20 Letras" //caracteres maximos
+            },
+
+        }
+    });
+</script>
+
+{% endblock %}
+
