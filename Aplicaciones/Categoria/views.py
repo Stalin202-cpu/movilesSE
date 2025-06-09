@@ -36,11 +36,12 @@ def editarCategoria(request, id):
     return render(request, "editarCategoria.html", {'categoriaEditar': categoriaEditar})
 
 # Vista para procesar la edición
-def procesarEdicionCategoria(request, id):
-    categoria = Categoria.objects.get(id=id)
-    categoria.nombre = request.POST["nombre"]
+def procesarEdicionCategoria(request):
+    id_categoria = request.POST["id"]
+    categoria2 = Categoria.objects.get(id=id_categoria)
+    categoria2.nombre = request.POST["nombre"]
 
-    categoria.save()
-    
+    categoria2.save()
+
     messages.success(request, "Categoría actualizada exitosamente")
     return redirect('inicio2')

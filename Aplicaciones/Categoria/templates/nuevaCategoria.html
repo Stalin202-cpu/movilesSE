@@ -7,7 +7,7 @@
     <div class="col-md-3"></div>
     <div class="col-md-6 bg-light p-4 rounded shadow-sm">
         <h1 class="mb-4">Nueva Aplicacion</h1>
-        <form action="guardarAplicacion" id="frm_nuevo_registro" enctype="multipart/form-data"  method="post">
+        <form action="guardarCategoria" id="frm_nuevo_registroC" enctype="multipart/form-data"  method="post">
             {% csrf_token %}
 
             <label for="nombre">Nombre:</label>
@@ -29,7 +29,7 @@
 <!-- Embeder codigo javascript/jquery dentro del HTML -->
 
 <script>
-    $("#frm_nuevo_registro").validate({
+    $("#frm_nuevo_registroC").validate({
         rules:{
             "nombre":{
                 required:true,
