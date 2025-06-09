@@ -41,13 +41,13 @@
     </tbody>
 </table>
 <div class="text-center">
-    <a href="nuevoCajero" class="btn btn-primary">
+    <a href="nuevaAplicacion" class="btn btn-primary">
         Agregar Cajero
     </a>
 </div>
 <br><br><br><br><br><br>
 <script>
-    function eliminarCajero(id){
+    function eliminarAplicacion(id){
         Swal.fire({
             title: "Desae eliminar?",
             text: "¿Estas seguro de eliminar al Cajero de forma permanenete?",
@@ -59,7 +59,7 @@
             }).then((result) => {
             if (result.isConfirmed) {
 
-                window.location.href="/eliminarCajero/"+id
+                window.location.href="/eliminarAplicacion/"+id
             
             }
         });
