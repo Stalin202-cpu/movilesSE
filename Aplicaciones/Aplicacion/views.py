@@ -38,7 +38,7 @@ def editarAplicacion(request, id):
     cajeroAplicacion = Aplicacion.objects.get(id=id)
     return render(request, "editarAplicacion.html", {'cajeroAplicacion': cajeroAplicacion})
 
-def procesarEdicionCajeros(request):
+def procesarEdicionAplicacion(request):
     
     id=request.POST["id"]
     nombre = request.POST["nombre"]

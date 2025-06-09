@@ -1,0 +1,82 @@
+<!-- el extend es para heredar -->
+{% extends './plantilla.html' %}
+{% load static %}
+{% block contenido %}
+<br><br><br><br><br><br>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light p-4 rounded shadow-sm">
+        <h1 class="mb-4">Editar Cajero</h1>
+        <form action="/procesarEdicionAplicacion" id="frm_editar_aplicacion" enctype="multipart/form-data"  method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{cajeroAplicacion.id}}">
+            
+            <label for="nombre">Nombre:</label>
+            <input class="form-control mb-3" type="text" name="nombre" id="nombre" value="{{cajeroAplicacion.nombre}}" ><br>
+
+            <label for="descripcion">Descripción:</label>
+            <input class="form-control mb-3" type="text" name="descripcion" id="descripcion" value="{{cajeroAplicacion.descripcion}}" ><br>
+
+            <label for="version">Versión:</label>
+            <input class="form-control mb-3" type="text" name="version" id="version" value="{{cajeroAplicacion.version}}" ><br>
+
+            <label for="fecha">Fecha:</label>
+            <input class="form-control mb-3" type="text" name="fecha" id="fecha" value="{{cajeroAplicacion.fecha}}" ><br>
+
+
+
+            <button
+            class="btn btn-warning"
+            type="submit"><i class="fa fa-pen"></i>
+                Editar</button>
+            <a 
+            class="btn btn-outline-danger"
+            href="{% url 'inicio' %}"><i class=" fa fa-times"></i>
+                Cancelar
+            </a>
+            
+        </form>
+        <br>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<script>
+    $("#frm_nuevo_aplicacion").validate({
+        rules:{
+            "nombre":{
+                required:true,
+                minlength:3,//Cuenta los caracteres
+                maxlength:10//caracteres maximos
+            },
+            "descripcion":{
+                required:true,
+            },
+            "version":{
+                required:true,
+
+            },
+            "fecha":{
+                required:true,
+
+            },
+        },
+        messages:{
+
+            "nombre":{
+                required:"Por favor ingrese este campo es Obligatorio!!",
+                minlength:"Este campo solo acepta nombres de 3 Letras",//Cuenta los caracteres
+                maxlength:"El nombre debe ser maximo de 10 Letras" //caracteres maximos
+            },
+
+            "descripcion":{
+                required:"Por favor ingrese la descripcion corectamente",
+            },
+            "version":{
+                required:"Por favor ingrese el turno que le toca (Dia, Tarde, Noche)"
+            },
+
+        }
+    });
+</script>
+
+{% endblock %}
